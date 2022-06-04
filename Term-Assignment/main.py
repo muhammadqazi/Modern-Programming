@@ -51,7 +51,11 @@ def modify(stdid, field, new_value):
 
                 with open('students.txt', 'w') as x:
                     for student in students:
-                        x.write(','.join(student) + '\n')
+                        # if its the last student in the list then we dont need to add a new line
+                        if student == students[-1]:
+                            x.write(','.join(student))
+                        else:
+                            x.write(','.join(student) + '\n')
 
                 print("\nModified successfully!")
                 print("Name of the student with id " + stdid +
@@ -63,7 +67,10 @@ def modify(stdid, field, new_value):
 
                 with open('students.txt', 'w') as x:
                     for student in students:
-                        x.write(','.join(student) + '\n')
+                        if student == students[-1]:
+                            x.write(','.join(student))
+                        else:
+                            x.write(','.join(student) + '\n')
 
                 print("\nModified successfully!")
                 print("CGPA of the student with id " + stdid +
@@ -75,7 +82,10 @@ def modify(stdid, field, new_value):
 
                 with open('students.txt', 'w') as x:
                     for student in students:
-                        x.write(','.join(student) + '\n')
+                        if student == students[-1]:
+                            x.write(','.join(student))
+                        else:
+                            x.write(','.join(student) + '\n')
 
                 print("\nModified successfully!")
                 print("DOB of the student with id " + stdid +
@@ -88,7 +98,10 @@ def modify(stdid, field, new_value):
 
                 with open('students.txt', 'w') as x:
                     for student in students:
-                        x.write(','.join(student) + '\n')
+                        if student == students[-1]:
+                            x.write(','.join(student))
+                        else:
+                            x.write(','.join(student) + '\n')
 
                 print("\nModified successfully!")
                 print("Gender of the student with id " + stdid +
@@ -104,11 +117,10 @@ def modify(stdid, field, new_value):
 def delete(stdid):
 
     students = _file_reader()
-
     for i in range(len(students)):
         if students[i][0] == stdid:
 
-            del students[i]
+            students.pop(i)
 
             prompt = input(
                 "Are you sure you want to delete this record? (y/n)")
@@ -116,7 +128,11 @@ def delete(stdid):
             if prompt == "y" or prompt == "Y":
                 with open('students.txt', 'w') as x:
                     for student in students:
-                        x.write(','.join(student) + '\n')
+                        # if its the last student in the list then we dont need to add a new line
+                        if student == students[-1]:
+                            x.write(','.join(student))
+                        else:
+                            x.write(','.join(student) + '\n')
 
                 print("\nDeleted successfully!")
                 print("Student with id " + stdid + " is deleted", end="\n\n")
@@ -152,10 +168,17 @@ def stats():
         elif students[i][4] == 'M':
             _total_males += 1
 
+    with open('stats.txt', 'w') as x:
+        x.write("\n\t{:20}{:10}\n".format("Total Students :", len(students)))
+        x.write("\t{:20}{:10}\n".format("Total Males    :", _total_males))
+        x.write("\t{:20}{:10}\n".format("Total Females  :", _total_females))
+        x.write("\t{:20}{:10.2f}\n".format(
+            "Average CGPA   :", _sum_cgpa/len(students)))
+
     print("\n\t{:20}{:10}\n".format("Total Students :", len(students)))
     print("\t{:20}{:10}\n".format("Total Males    :", _total_males))
     print("\t{:20}{:10}\n".format("Total Females  :", _total_females))
-    print("\t{:20}{:10}\n".format(
+    print("\t{:20}{:10.2f}\n".format(
         "Average CGPA   :", _sum_cgpa/len(students)))
 
 

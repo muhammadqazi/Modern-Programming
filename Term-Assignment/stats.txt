@@ -1,0 +1,5 @@
+
+	Total Students :             7
+	Total Males    :             4
+	Total Females  :             3
+	Average CGPA   :          2.38
